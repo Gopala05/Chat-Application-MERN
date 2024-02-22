@@ -1,2 +1,2 @@
 # Chatting-Application MERN
-A real time Chat application system
+A real time Chatting application system
