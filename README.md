@@ -1,2 +1,2 @@
-# Chatting-Application MERN
-A Real time Chatting Application...
+# Chat-Application MERN
+A Real time Chatting Application using MERN
