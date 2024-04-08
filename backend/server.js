@@ -11,13 +11,13 @@ dotenv.config();
 
 //Middleware
 app.use(express.json());
-app.use("/api/auth", authRoute);
+app.use("/api/auth", authRoute); 
 
 // app.get("/", (req, res) => {
 //   res.send("OK GK");
 // });
 
 app.listen(PORT, () => {
-  connection(); 
+  connection();
   console.log(`Server running on port ${PORT}`);
 });
