@@ -3,7 +3,8 @@ import bcrypt from "bcryptjs";
 import generateToken from "../utils/generateToken.js";
 
 //Sign Up
-export const signup = async (req, res) => {
+export const signup = async (req, res) => {this.setState((state, props) => { return { sq }})
+
   try {
     const { fullName, userName, password, confirmPassword, gender } = req.body; //Payload
 
@@ -54,11 +55,37 @@ export const signup = async (req, res) => {
 };
 
 //Log-In
-export const login = (req, res) => {
-  console.log("User Login");
+export const login = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const user = await UserModal.findOne({ username });
+    const PasswordMatch = await bcrypt.compare(password, user?.password || "");
+
+    if (!user || !PasswordMatch) {
+      return res.status(400).json({ error: "Invalid Username or Password" });
+    }
+
+    generateToken(user._id, res);
+
+    res.status(200).json({
+      _id: user.id,
+      fullName: user.fullName,
+      username: user.username,
+      profilePic: user.profileImage,
+    });
+  } catch (error) {
+    console.log("Log-In Error: ", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
 
 //Log-Out
 export const logout = (req, res) => {
-  console.log("User Logout");
+  try {
+    res.cookie("jwt", "", { maxAge: 0 });
+    res.status(200).json({ message: "Logged Out Successfully" });
+  } catch (error) {
+    console.log("Log-Out Error: ", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
