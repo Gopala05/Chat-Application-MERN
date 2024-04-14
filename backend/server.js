@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 
 import authRoute from "./routes/auth.routes.js";
+import messageRoute from "./routes/message.routes.js";
 import connection from "./db/connectTOMongoDB.js";
 
 const app = express();
@@ -10,8 +11,10 @@ const PORT = process.env.PORT || 5000;
 dotenv.config();
 
 //Middleware
-app.use(express.json());
+app.use(express.json()); //to parse the incomming requests with JSON payloads (from req.body)
+
 app.use("/api/auth", authRoute); 
+app.use("/api/message", messageRoute); 
 
 // app.get("/", (req, res) => {
 //   res.send("OK GK");
