@@ -3,7 +3,8 @@ import bcrypt from "bcryptjs";
 import generateToken from "../utils/generateToken.js";
 
 //Sign Up
-export const signup = async (req, res) => {this.setState((state, props) => { return { sq }})
+export const signup = async (req, res) => {
+  // this.setState((state, props) => { return { sq }})
 
   try {
     const { fullName, userName, password, confirmPassword, gender } = req.body; //Payload
