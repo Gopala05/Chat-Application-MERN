@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 
 import authRoute from "./routes/auth.routes.js";
 import messageRoute from "./routes/message.routes.js";
@@ -12,6 +13,7 @@ dotenv.config();
 
 //Middleware
 app.use(express.json()); //to parse the incomming requests with JSON payloads (from req.body)
+app.use(cookieParser()); 
 
 app.use("/api/auth", authRoute); 
 app.use("/api/message", messageRoute); 
