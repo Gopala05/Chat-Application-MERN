@@ -7,11 +7,15 @@ import messageRoute from "./routes/message.routes.js";
 import userRoute from "./routes/user.routes.js";
 
 import connection from "./db/connectTOMongoDB.js";
+import cors from "cors";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 dotenv.config();
+
+//CORS
+app.use(cors());
 
 //Middleware
 app.use(express.json()); //to parse the incomming requests with JSON payloads (from req.body)

@@ -7,13 +7,13 @@ export const signup = async (req, res) => {
   // this.setState((state, props) => { return { sq }})
 
   try {
-    const { fullName, userName, password, confirmPassword, gender } = req.body; //Payload
+    const { fullName, username, password, confirmPassword, gender } = req.body; //Payload
 
     if (password !== confirmPassword) {
       return res.status(400).json({ error: "Password don't match" });
     }
 
-    const userExist = await UserModal.findOne({ userName });
+    const userExist = await UserModal.findOne({ username });
 
     if (userExist) {
       return res.status(400).json({ error: "User already Exist" });
@@ -24,12 +24,12 @@ export const signup = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     //Random Profile Pic API
-    const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${userName}`;
-    const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${userName}`;
+    const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
+    const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
 
     const newUser = new UserModal({
       fullName,
-      username: userName, //Since the "username" in Modal is not Same as "userName"
+      username,
       password: hashedPassword,
       gender,
       profileImage: gender === "male" ? boyProfilePic : girlProfilePic,

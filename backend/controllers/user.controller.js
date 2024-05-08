@@ -5,7 +5,6 @@ export const getAllUsers = async (req, res) => {
     const loggedInUserID = req.user._id;
 
     //To Fetch All Users Including the User Logged IN
-
     // const allUsers = await UserModal.find().select("-password");
 
     //To Fetch All users Excluding the User Logged IN
