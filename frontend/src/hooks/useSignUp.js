@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useAuthContext } from "../components/context/AuthContext";
+import { useAuthContext } from "../context/AuthContext";
 
 const useSignUp = () => {
   const [loading, setLoading] = useState(false);
@@ -14,13 +14,6 @@ const useSignUp = () => {
     confirmPassword,
     gender,
   }) => {
-    console.log({
-      fullName,
-      username,
-      password,
-      confirmPassword,
-      gender,
-    });
     const isValid = handleValidation({
       fullName,
       username,
@@ -56,7 +49,6 @@ const useSignUp = () => {
 
       //Context setUser
       setUser(data);
-
     } catch (error) {
       toast.error(error.response.data.error);
     } finally {
