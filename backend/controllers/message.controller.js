@@ -1,5 +1,6 @@
 import ConversationModal from "../models/conversation.model.js";
 import MessageModal from "../models/message.model.js";
+import { getReceiverSocketID, io } from "../socket/socket.js";
 
 export const sendingMessage = async (req, res) => {
   try {
@@ -31,6 +32,13 @@ export const sendingMessage = async (req, res) => {
 
     //The below statements of saving in Conversation and Messages will run in Parallel
     await Promise.all([conversation.save(), newMessage.save()]);
+
+    //SOCKET IO
+    const receiverSocketID = getReceiverSocketID(receiverId);
+    if (receiverSocketID) {
+      // io.to(<socket.id>) sends the event to a perticular Sicket ID client where as io.emit() sends to all elients
+      io.to(receiverSocketID).emit("newMessage", newMessage);
+    }
 
     res.status(201).json(newMessage);
   } catch (error) {
